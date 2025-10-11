@@ -1,4 +1,4 @@
-import control.CrawlerConfig;
+import control.utils.CrawlerConfig;
 import control.CrawlerController;
 
 public class Main {
