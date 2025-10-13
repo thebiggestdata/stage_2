@@ -1,4 +1,4 @@
-package control.mongoDb;
+package indexing.control.mongoDb;
 
 import java.util.List;
 import java.util.Set;

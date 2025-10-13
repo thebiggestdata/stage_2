@@ -1,4 +1,4 @@
-package model;
+package indexing.model;
 
 import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.ar.ArabicAnalyzer;

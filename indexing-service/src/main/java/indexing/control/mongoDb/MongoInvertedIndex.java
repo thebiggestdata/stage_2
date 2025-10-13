@@ -1,4 +1,4 @@
-package control.mongoDb;
+package indexing.control.mongoDb;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
