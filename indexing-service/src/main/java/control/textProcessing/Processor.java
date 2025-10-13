@@ -1,10 +1,15 @@
-package control.textProccesing;
+package control.textProcessing;
 
 import java.util.List;
 
 public class Processor {
     private final Tokenizer tokenizer;
     private final StopWordFilter stopWordFilter;
+
+    public Processor() {
+        this.tokenizer = new Tokenizer();
+        this.stopWordFilter = new StopWordFilter();
+    }
 
     public Processor(Tokenizer tokenizer, StopWordFilter stopWordFilter) {
         this.tokenizer = tokenizer != null ? tokenizer : new Tokenizer();

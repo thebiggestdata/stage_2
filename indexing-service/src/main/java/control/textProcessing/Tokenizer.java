@@ -1,4 +1,4 @@
-package control.textProccesing;
+package control.textProcessing;
 
 import java.util.ArrayList;
 import java.util.List;
