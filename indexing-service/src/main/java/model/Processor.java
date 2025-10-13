@@ -1,4 +1,4 @@
-package control.textProcessing;
+package model;
 
 import java.util.List;
 

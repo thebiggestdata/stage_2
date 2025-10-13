@@ -1,4 +1,4 @@
-package control.textProcessing;
+package model;
 
 import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.ar.ArabicAnalyzer;
