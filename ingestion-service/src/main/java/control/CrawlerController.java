@@ -6,41 +6,61 @@ import control.storer.BookStorer;
 import control.utils.CrawlerConfig;
 import control.utils.DatalakePathBuilder;
 import model.Book;
-
+import model.StorageResult;
 import java.util.logging.Logger;
 
 public class CrawlerController {
     private static final Logger logger = Logger.getLogger(CrawlerController.class.getName());
     private final CrawlerConfig config;
     private final BookFetcher fetcher;
-    private final BookStorer storer;
-    private final DatalakePathBuilder pathBuilder;
+    private final BookStorer storage;
+    private int currentId;
 
     public CrawlerController(CrawlerConfig config) {
         this.config = config;
+        this.currentId = config.startId();
         this.fetcher = new BookFetcher();
-        this.pathBuilder = new DatalakePathBuilder();
-        this.storer = new BookStorer();
+        DatalakePathBuilder pathBuilder = new DatalakePathBuilder();
+        this.storage = new BookStorer(pathBuilder);
     }
 
-    public void crawlRange() {
-        for (int bookId = config.startId(); bookId <= config.endId(); bookId++) {
-            processBook(bookId);
-            waitBetweenDownloads();
+    public StorageResult downloadBook(int bookId) {
+        try {
+            logger.info("Downloading book " + bookId);
+            String content = fetcher.fetch(bookId);
+            BookSerializer serializer = new BookSerializer(content, bookId);
+            Book book = serializer.serialize();
+            StorageResult result = storage.save(book);
+            if (result.success()) logger.info("Successfully downloaded book " + bookId);
+            return result;
+        } catch (Exception e) {
+            logger.warning("Failed to download book " + bookId + ": " + e.getMessage());
+            return new StorageResult(false, null, null, null);
         }
     }
 
-    private void processBook(int bookId) {
-        logger.info("Processing book " + bookId);
-        try {downloadAndSaveBook(bookId);}
-        catch (Exception e) {logger.warning("Failed to process book " + bookId + ": " + e.getMessage());}
+    public StorageResult downloadNextBook() {
+        int bookId = currentId;
+        StorageResult result = downloadBook(bookId);
+        currentId++;
+        return result;
     }
 
-    private void downloadAndSaveBook(int bookId) throws Exception {
-        String content = fetcher.fetch(bookId);
-        Book book = new BookSerializer(content, bookId).serialize();
-        String directory = pathBuilder.buildPath();
-        storer.save(book, directory);
+    public void setCurrentId(int bookId) {this.currentId = bookId;}
+
+    public void crawlRange() {crawlRange(config.startId(), config.endId());}
+
+    public void crawlRange(int startId, int endId) {
+        int total = endId - startId + 1;
+        int successful = 0;
+        logger.info(String.format("Starting crawl from book %d to %d", startId, endId));
+        for (int bookId = startId; bookId <= endId; bookId++) {
+            logger.info("Processing book " + bookId);
+            StorageResult result = downloadBook(bookId);
+            if (result.success()) successful++;
+            waitBetweenDownloads();
+        }
+        logger.info(String.format("Downloaded %d/%d books successfully", successful, total));
     }
 
     private void waitBetweenDownloads() {
@@ -48,7 +68,9 @@ public class CrawlerController {
             Thread.sleep(config.delay());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException("Crawler interrupted", e);
+            logger.warning("Crawler interrupted: " + e.getMessage());
         }
     }
+
+    public int getCurrentId() {return currentId;}
 }
