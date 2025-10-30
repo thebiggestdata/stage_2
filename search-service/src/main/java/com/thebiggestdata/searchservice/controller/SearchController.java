@@ -2,7 +2,6 @@ package com.thebiggestdata.searchservice.controller;
 
 import com.thebiggestdata.searchservice.dto.SearchResponseDto;
 import com.thebiggestdata.searchservice.model.SearchFilters;
-import com.thebiggestdata.searchservice.model.SearchResult;
 import com.thebiggestdata.searchservice.service.SearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/search")
+@RequestMapping("/api/v1/search-service")
 @Tag(name = "Search", description = "Endpoints para búsqueda de libros con filtros opcionales")
 public class SearchController {
 
@@ -41,14 +40,14 @@ public class SearchController {
             return ResponseEntity.badRequest().build();
         }
 
-        SearchFilters filters = new SearchFilters(author, language, year);
-        SearchResult result = searchService.search(query.trim(), filters);
+        var filters = new SearchFilters(author, language, year);
+        var result = searchService.search(query.trim(), filters);
 
-        SearchResponseDto response = new SearchResponseDto(
-                result.getQuery(),
-                result.getFilters(),
-                result.getCount(),
-                result.getResults()
+        var response = new SearchResponseDto(
+                result.query(),
+                result.filters(),
+                result.count(),
+                result.results()
         );
 
         return ResponseEntity.ok(response);

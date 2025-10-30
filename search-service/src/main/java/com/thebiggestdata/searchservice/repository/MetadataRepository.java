@@ -42,11 +42,11 @@ public class MetadataRepository {
         }
 
         try {
-            List<BookInfo> books = new ArrayList<>();
-            Document query = new Document("book_id", new Document("$in", new ArrayList<>(bookIds)));
+            var books = new ArrayList<BookInfo>();
+            var query = new Document("book_id", new Document("$in", new ArrayList<>(bookIds)));
 
             collection.find(query).forEach(doc -> {
-                BookInfo book = documentToBookInfo(doc);
+                var book = documentToBookInfo(doc);
                 if (book != null) {
                     books.add(book);
                 }
@@ -63,11 +63,11 @@ public class MetadataRepository {
 
     private BookInfo documentToBookInfo(Document doc) {
         try {
-            int bookId = doc.getInteger("book_id");
-            String title = doc.getString("title");
-            String author = doc.getString("author");
-            String language = doc.getString("language");
-            Integer year = extractYearFromReleaseDate(doc.getString("release_date"));
+            var bookId = doc.getInteger("book_id");
+            var title = doc.getString("title");
+            var author = doc.getString("author");
+            var language = doc.getString("language");
+            var year = extractYearFromReleaseDate(doc.getString("release_date"));
 
             return new BookInfo(bookId, title, author, language, year);
 
@@ -83,8 +83,8 @@ public class MetadataRepository {
         }
 
         try {
-            Pattern yearPattern = Pattern.compile("\\b(\\d{4})\\b");
-            java.util.regex.Matcher matcher = yearPattern.matcher(releaseDate);
+            var yearPattern = Pattern.compile("\\b(\\d{4})\\b");
+            var matcher = yearPattern.matcher(releaseDate);
 
             if (matcher.find()) {
                 return Integer.parseInt(matcher.group(1));

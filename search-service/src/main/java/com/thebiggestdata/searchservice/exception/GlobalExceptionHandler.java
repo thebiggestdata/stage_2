@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
@@ -19,10 +18,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
         logger.warn("Type mismatch error: {}", ex.getMessage());
 
-        Map<String, String> error = new HashMap<>();
-        error.put("error", "Invalid parameter type");
-        error.put("message", String.format("Parameter '%s' should be of type %s",
-                ex.getName(), ex.getRequiredType().getSimpleName()));
+        var error = Map.of(
+                "error", "Invalid parameter type",
+                "message", String.format("Parameter '%s' should be of type %s",
+                        ex.getName(), ex.getRequiredType().getSimpleName())
+        );
 
         return ResponseEntity.badRequest().body(error);
     }
@@ -31,9 +31,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
         logger.error("Unexpected error: {}", ex.getMessage(), ex);
 
-        Map<String, String> error = new HashMap<>();
-        error.put("error", "Internal server error");
-        error.put("message", "An unexpected error occurred");
+        var error = Map.of(
+                "error", "Internal server error",
+                "message", "An unexpected error occurred"
+        );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
