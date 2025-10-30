@@ -1,7 +1,0 @@
-com\example\search\model\SearchQuery.class
-com\example\search\service\SearchService.class
-com\example\search\model\SearchResponse.class
-com\example\search\repository\InvertedIndexRepository.class
-com\example\search\controller\SearchController.class
-com\example\search\App.class
-com\example\search\model\Book.class
