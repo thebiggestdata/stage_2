@@ -5,6 +5,8 @@ import api.dto.IndexUpdateResultDto;
 import api.dto.RebuildResultDto;
 import indexing.control.IndexController;
 import metadata.control.MetadataController;
+import metadata.control.parser.HeaderParser;
+import metadata.control.storage.MongoDbStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +42,11 @@ public class IndexingService {
 
         this.datalakeBasePath = datalakeBasePath;
         this.indexController = new IndexController("en", datalakeBasePath);
-        this.metadataController = new MetadataController();
+        this.metadataController = new MetadataController(
+                new MongoDbStorage(),
+                new HeaderParser(),
+                datalakeBasePath
+        );
 
         // Initialize both controllers
         boolean indexInit = indexController.initialize(mongoUri, indexDb);

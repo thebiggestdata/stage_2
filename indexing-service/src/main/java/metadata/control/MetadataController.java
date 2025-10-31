@@ -18,11 +18,7 @@ public class MetadataController {
     public MetadataController(DbStorageInterface storage, HeaderParser headerParser, String datalakeBasePath) {
         this.storage = storage;
         this.extractor = new MetadataExtractor(storage, headerParser, datalakeBasePath);
-        logger.info("MetadataController initialized");
-    }
-
-    public MetadataController() {
-        this(new MongoDbStorage(), new HeaderParser(), "datalake");
+        logger.info("MetadataController initialized with datalake : {}", datalakeBasePath);
     }
 
     public boolean initialize() {

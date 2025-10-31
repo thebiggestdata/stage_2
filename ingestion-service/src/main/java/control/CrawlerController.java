@@ -16,11 +16,11 @@ public class CrawlerController {
     private final BookStorer storage;
     private int currentId;
 
-    public CrawlerController(CrawlerConfig config) {
+    public CrawlerController(CrawlerConfig config, String datalakeBasePath) {
         this.config = config;
         this.currentId = config.startId();
         this.fetcher = new BookFetcher();
-        DatalakePathBuilder pathBuilder = new DatalakePathBuilder();
+        DatalakePathBuilder pathBuilder = new DatalakePathBuilder(datalakeBasePath);
         this.storage = new BookStorer(pathBuilder);
     }
 

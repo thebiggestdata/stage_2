@@ -3,6 +3,7 @@ package api.service;
 import control.CrawlerController;
 import control.utils.CrawlerConfig;
 import model.StorageResult;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Logger;
@@ -13,10 +14,12 @@ public class IngestionService {
 
     private CrawlerController crawler;
     private CrawlerConfig currentConfig;
+    private final String datalakeBasePath;
 
-    public IngestionService() {
+    public IngestionService(@Value("${datalake.base-path}") String datalakeBasePath) {
+        this.datalakeBasePath = datalakeBasePath;
         this.currentConfig = new CrawlerConfig(1, 1000, 1000L);
-        this.crawler = new CrawlerController(currentConfig);
+        this.crawler = new CrawlerController(currentConfig, datalakeBasePath);
     }
 
     public StorageResult downloadBook(int bookId) {
@@ -37,7 +40,7 @@ public class IngestionService {
     public void updateConfiguration(CrawlerConfig newConfig) {
         logger.info("Service: Updating crawler configuration");
         this.currentConfig = newConfig;
-        this.crawler = new CrawlerController(newConfig);
+        this.crawler = new CrawlerController(newConfig, datalakeBasePath);
     }
 
     public int getCurrentBookId() {
@@ -48,4 +51,3 @@ public class IngestionService {
         return currentConfig;
     }
 }
-
