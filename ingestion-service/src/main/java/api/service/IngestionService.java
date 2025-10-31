@@ -17,13 +17,12 @@ import java.util.List;
 public class IngestionService {
     private static final Logger logger = LoggerFactory.getLogger(IngestionService.class);
     private static final String DATALAKE_BASE_PATH = "datalake";
-
     private final CrawlerController crawlerController;
     private final BookStorageRepository storageRepository;
 
-    public IngestionService(CrawlerController crawlerController) {
+    public IngestionService(CrawlerController crawlerController, BookStorageRepository storageRepository) {
         this.crawlerController = crawlerController;
-        this.storageRepository = new FileSystemBookRepository(DATALAKE_BASE_PATH);
+        this.storageRepository = storageRepository;
     }
 
     public IngestionResultDto ingestBook(int bookId) {
