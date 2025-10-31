@@ -4,7 +4,8 @@ import control.CrawlerController;
 public class Main {
     public static void main(String[] args) {
         CrawlerConfig config = parseArguments(args);
-        CrawlerController crawler = new CrawlerController(config);
+        String datalakePath = args.length > 3 ? args[3] : "datalake/";
+        CrawlerController crawler = new CrawlerController(config, datalakePath);
         crawler.crawlRange();
     }
 
