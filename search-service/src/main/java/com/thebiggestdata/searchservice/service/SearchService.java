@@ -74,7 +74,7 @@ public class SearchService {
         );
     }
 
-    private List<BookInfo> applyFilters(List<BookInfo> books, SearchFilters filters) {
+    public List<BookInfo> applyFilters(List<BookInfo> books, SearchFilters filters) {
         if (filters == null || !filters.hasAnyFilter()) {
             return books;
         }

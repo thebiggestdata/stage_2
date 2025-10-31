@@ -61,7 +61,7 @@ public class MetadataRepository {
         }
     }
 
-    private BookInfo documentToBookInfo(Document doc) {
+    public BookInfo documentToBookInfo(Document doc) {
         try {
             var bookId = doc.getInteger("book_id");
             var title = doc.getString("title");
