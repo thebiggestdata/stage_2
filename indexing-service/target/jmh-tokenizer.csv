@@ -1,0 +1,4 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99,9%)","Unit","Param: textLength"
+"ulpgc.bd.thebiggestdata.indexing.benchmark.TokenizerBenchmark.benchmarkTokenize","avgt",1,10,"0,018244","0,002623","ms/op",1000
+"ulpgc.bd.thebiggestdata.indexing.benchmark.TokenizerBenchmark.benchmarkTokenize","avgt",1,10,"0,174639","0,006164","ms/op",10000
+"ulpgc.bd.thebiggestdata.indexing.benchmark.TokenizerBenchmark.benchmarkTokenize","avgt",1,10,"1,653455","0,079753","ms/op",100000
