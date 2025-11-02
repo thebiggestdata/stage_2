@@ -4,10 +4,7 @@ import org.openjdk.jmh.annotations.*;
 import java.util.concurrent.TimeUnit;
 import indexing.model.Tokenizer;
 
-/**
- * Benchmark para medir el rendimiento del Tokenizer.
- * Mide el tiempo promedio que tarda en dividir un texto en tokens.
- */
+
 @BenchmarkMode(Mode.AverageTime)       // Medimos el tiempo promedio por operación
 @OutputTimeUnit(TimeUnit.MILLISECONDS) // Mostramos resultados en milisegundos
 @Warmup(iterations = 5)                // 5 iteraciones de calentamiento (JIT)
@@ -37,7 +34,6 @@ public class TokenizerBenchmark {
 
     @Benchmark
     public Object benchmarkTokenize() {
-        // Ejecuta el método y devuelve el resultado para evitar dead-code elimination
         return tokenizer.tokenize(text);
     }
 }

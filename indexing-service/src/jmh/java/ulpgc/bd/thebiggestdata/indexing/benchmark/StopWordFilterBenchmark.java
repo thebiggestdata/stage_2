@@ -30,8 +30,8 @@ public class StopWordFilterBenchmark {
 
     @Setup(Level.Trial)
     public void setup() {
-        tokenizer = new Tokenizer();       // tu implementación real
-        filter    = new StopWordFilter();  // tu implementación real
+        tokenizer = new Tokenizer();
+        filter    = new StopWordFilter();
 
         String base = "Alice was beginning to get very tired of sitting by her sister ";
         StringBuilder sb = new StringBuilder();
@@ -39,13 +39,12 @@ public class StopWordFilterBenchmark {
         text = sb.toString();
 
         // PRE: tokenizamos una sola vez para aislar el coste de filtrar
-        tokens = new ArrayList<>(tokenizer.tokenize(text)); // <-- si tu método se llama distinto, cambia esta línea
+        tokens = new ArrayList<>(tokenizer.tokenize(text));
     }
 
     @Benchmark
     public Object benchmarkFilter() {
-        // Filtrado puro (si tu API devuelve nueva lista, usa ese retorno)
-        // Cambia 'filter(tokens)' si tu método se llama distinto (p.ej. apply/remove/clean)
+
         return filter.filter(tokens);
     }
 }
