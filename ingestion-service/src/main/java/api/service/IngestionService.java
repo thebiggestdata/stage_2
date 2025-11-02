@@ -4,6 +4,7 @@ import api.dto.BookListDto;
 import api.dto.BookStatusDto;
 import api.dto.IngestionResultDto;
 import control.CrawlerController;
+import control.utils.BookStorageRepository;
 import model.StorageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

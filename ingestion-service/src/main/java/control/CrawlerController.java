@@ -1,7 +1,7 @@
 package control;
 
-import api.service.BookStorageRepository;
-import api.service.FileSystemBookRepository;
+import control.utils.BookStorageRepository;
+import control.utils.FileSystemBookRepository;
 import control.fetch.BookFetcher;
 import control.serializer.BookSerializer;
 import control.storer.BookStorer;

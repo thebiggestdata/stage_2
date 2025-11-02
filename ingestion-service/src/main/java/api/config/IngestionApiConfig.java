@@ -1,7 +1,7 @@
 package api.config;
 
-import api.service.BookStorageRepository;
-import api.service.FileSystemBookRepository;
+import control.utils.BookStorageRepository;
+import control.utils.FileSystemBookRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
