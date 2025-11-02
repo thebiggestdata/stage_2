@@ -28,6 +28,10 @@ public class IngestionService {
     public IngestionResultDto ingestBook(int bookId) {
         logger.info("Ingesting book {}", bookId);
         try {
+            if (storageRepository.exists(bookId)) {
+                logger.info("Book {} already downloaded, skipping", bookId);
+                return new IngestionResultDto(bookId, "already_downloaded", null);
+            }
             StorageResult result = crawlerController.downloadBook(bookId);
             if (result == null || !result.success()) {
                 logger.warn("Failed to ingest book {}", bookId);
