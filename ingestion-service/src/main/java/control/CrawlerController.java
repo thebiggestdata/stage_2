@@ -1,5 +1,7 @@
 package control;
 
+import api.service.BookStorageRepository;
+import api.service.FileSystemBookRepository;
 import control.fetch.BookFetcher;
 import control.serializer.BookSerializer;
 import control.storer.BookStorer;
@@ -14,6 +16,7 @@ public class CrawlerController {
     private final CrawlerConfig config;
     private final BookFetcher fetcher;
     private final BookStorer storage;
+    private final BookStorageRepository storageRepository;
     private int currentId;
 
     public CrawlerController(CrawlerConfig config, String datalakeBasePath) {
@@ -22,9 +25,14 @@ public class CrawlerController {
         this.fetcher = new BookFetcher();
         DatalakePathBuilder pathBuilder = new DatalakePathBuilder(datalakeBasePath);
         this.storage = new BookStorer(pathBuilder);
+        this.storageRepository = new FileSystemBookRepository(datalakeBasePath);
     }
 
     public StorageResult downloadBook(int bookId) {
+        if (storageRepository.exists(bookId)) {
+            logger.info("Book " + bookId + " already downloaded, skipping");
+            return new StorageResult(false, null, null, null);
+        }
         try {
             logger.info("Downloading book " + bookId);
             String content = fetcher.fetch(bookId);
@@ -39,15 +47,6 @@ public class CrawlerController {
         }
     }
 
-    public StorageResult downloadNextBook() {
-        int bookId = currentId;
-        StorageResult result = downloadBook(bookId);
-        currentId++;
-        return result;
-    }
-
-    public void setCurrentId(int bookId) {this.currentId = bookId;}
-
     public void crawlRange() {crawlRange(config.startId(), config.endId());}
 
     public void crawlRange(int startId, int endId) {
@@ -60,13 +59,12 @@ public class CrawlerController {
             if (result.success()) successful++;
             waitBetweenDownloads();
         }
-        logger.info(String.format("Downloaded %d/%d books successfully", successful, total));
+        logger.info(String.format("Downloaded %d/%d books", successful, total));
     }
 
     private void waitBetweenDownloads() {
-        try {
-            Thread.sleep(config.delay());
-        } catch (InterruptedException e) {
+        try {Thread.sleep(config.delay());}
+        catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             logger.warning("Crawler interrupted: " + e.getMessage());
         }
