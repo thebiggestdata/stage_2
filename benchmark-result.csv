@@ -1,0 +1,4 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99,9%)","Unit","Param: booksCount"
+"com.thebiggestdata.benchmark.SearchServiceBenchmark.benchmarkApplyFilters","avgt",1,25,"0,037428","0,002032","ms/op",1000
+"com.thebiggestdata.benchmark.SearchServiceBenchmark.benchmarkApplyFilters","avgt",1,25,"0,392811","0,017964","ms/op",10000
+"com.thebiggestdata.benchmark.SearchServiceBenchmark.benchmarkApplyFilters","avgt",1,25,"4,997037","0,259314","ms/op",100000
