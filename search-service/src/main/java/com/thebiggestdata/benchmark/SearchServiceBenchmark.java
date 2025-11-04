@@ -1,8 +1,8 @@
 package com.thebiggestdata.benchmark;
 
-import com.thebiggestdata.searchservice.model.BookInfo;
-import com.thebiggestdata.searchservice.model.SearchFilters;
-import com.thebiggestdata.searchservice.service.SearchService;
+import com.thebiggestdata.search.model.BookInfo;
+import com.thebiggestdata.search.model.SearchFilters;
+import com.thebiggestdata.search.api.service.SearchService;
 import org.openjdk.jmh.annotations.*;
 import java.util.List;
 import java.util.ArrayList;

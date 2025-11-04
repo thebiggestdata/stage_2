@@ -1,6 +1,6 @@
 package com.thebiggestdata.benchmark;
 
-import com.thebiggestdata.searchservice.repository.MetadataRepository;
+import com.thebiggestdata.search.repository.MetadataRepository;
 import org.bson.Document;
 import org.openjdk.jmh.annotations.*;
 

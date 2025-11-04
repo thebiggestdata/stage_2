@@ -1,0 +1,4 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99,9%)","Unit","Param: textLength"
+"ulpgc.bd.thebiggestdata.index.benchmark.StopWordFilterBenchmark.benchmarkFilter","avgt",1,10,"0,002242","0,000020","ms/op",1000
+"ulpgc.bd.thebiggestdata.index.benchmark.StopWordFilterBenchmark.benchmarkFilter","avgt",1,10,"0,020973","0,000173","ms/op",10000
+"ulpgc.bd.thebiggestdata.index.benchmark.StopWordFilterBenchmark.benchmarkFilter","avgt",1,10,"0,175278","0,005418","ms/op",100000

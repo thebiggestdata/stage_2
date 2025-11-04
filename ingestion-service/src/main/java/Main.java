@@ -1,5 +1,5 @@
-import control.utils.CrawlerConfig;
-import control.CrawlerController;
+import com.thebiggestdata.ingestion.control.utils.CrawlerConfig;
+import com.thebiggestdata.ingestion.control.CrawlerController;
 
 public class Main {
     public static void main(String[] args) {

@@ -43,7 +43,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>control.ControlApp</mainClass>
+                    <mainClass>com.thebiggestdata.controller.ControlApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>

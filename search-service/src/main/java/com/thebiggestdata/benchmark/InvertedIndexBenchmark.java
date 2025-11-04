@@ -1,6 +1,6 @@
 package com.thebiggestdata.benchmark;
 
-import com.thebiggestdata.searchservice.repository.InvertedIndexRepository;
+import com.thebiggestdata.search.repository.InvertedIndexRepository;
 
 import java.util.concurrent.TimeUnit;
 import org.openjdk.jmh.annotations.*;
