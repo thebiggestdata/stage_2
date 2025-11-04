@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 public class IngestionService {
     private static final Logger logger = LoggerFactory.getLogger(IngestionService.class);
-    private static final String DATALAKE_BASE_PATH = "datalake";
     private final CrawlerController crawlerController;
     private final BookStorageRepository storageRepository;
 

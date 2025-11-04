@@ -2,15 +2,20 @@ package api.config;
 
 import control.utils.BookStorageRepository;
 import control.utils.FileSystemBookRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.nio.file.Paths;
 
 @Configuration
 public class IngestionApiConfig implements WebMvcConfigurer {
+
+    @Value("${datalake.base-path}")
+    private String datalakeBasePath;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -30,6 +35,7 @@ public class IngestionApiConfig implements WebMvcConfigurer {
 
     @Bean
     public BookStorageRepository bookStorageRepository() {
-        return new FileSystemBookRepository("datalake");
+        String absolutePath = Paths.get(datalakeBasePath).toAbsolutePath().normalize().toString();
+        return new FileSystemBookRepository(absolutePath);
     }
 }
