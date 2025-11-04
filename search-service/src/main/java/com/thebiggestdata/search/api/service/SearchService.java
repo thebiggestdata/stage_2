@@ -62,15 +62,16 @@ public class SearchService {
         var candidateBooks = metadataRepository.findBooksByIds(bookIds);
         var filteredBooks = applyFilters(candidateBooks, filters);
 
-        filteredBooks.sort(Comparator.comparingInt(BookInfo::bookId));
+        var sortedBooks = new ArrayList<>(filteredBooks);
+        sortedBooks.sort(Comparator.comparingInt(BookInfo::bookId));
 
-        logger.info("Search completed - query: '{}', results: {}", query, filteredBooks.size());
+        logger.info("Search completed - query: '{}', results: {}", query, sortedBooks.size());
 
         return new SearchResult(
                 query,
                 buildFiltersMap(filters),
-                filteredBooks.size(),
-                filteredBooks
+                sortedBooks.size(),
+                sortedBooks
         );
     }
 
