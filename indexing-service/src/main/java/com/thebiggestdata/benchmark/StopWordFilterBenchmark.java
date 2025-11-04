@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import com.thebiggestdata.indexing.index.model.Tokenizer;
 import com.thebiggestdata.indexing.index.model.StopWordFilter;
 
-/**
- * Mide SOLO el coste de filtrar stopwords.
- * Los tokens se preparan en @Setup para no mezclar tokenización con filtrado.
- */
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Warmup(iterations = 5)
@@ -23,7 +19,7 @@ public class StopWordFilterBenchmark {
     private Tokenizer tokenizer;
     private StopWordFilter filter;
     private String text;
-    private List<String> tokens; // precomputados en setup
+    private List<String> tokens;
 
     @Param({"1000", "10000", "100000"})
     private int textLength;
@@ -38,7 +34,6 @@ public class StopWordFilterBenchmark {
         while (sb.length() < textLength) sb.append(base);
         text = sb.toString();
 
-        // PRE: tokenizamos una sola vez para aislar el coste de filtrar
         tokens = new ArrayList<>(tokenizer.tokenize(text));
     }
 

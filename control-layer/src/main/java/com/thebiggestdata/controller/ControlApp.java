@@ -9,7 +9,6 @@ public class ControlApp {
         System.out.println("╚═══════════════════════════════════════════════════════════╝");
         System.out.println();
 
-        // Parsear argumentos de línea de comandos
         int startId = 1;
         int endId = 10;
 

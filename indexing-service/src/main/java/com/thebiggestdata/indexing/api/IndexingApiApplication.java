@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"api", "index", "metadata"})
 public class IndexingApiApplication {
 
     public static void main(String[] args) {
